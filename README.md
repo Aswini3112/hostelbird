@@ -331,12 +331,12 @@ The application was tested for:
 ## Repository
 
 GitHub:
-YOUR_GITHUB_LINK
+YOUR_GITHUB_LINK : https://github.com/Aswini3112/hostelbird
 
 ## Demo
 
 Live Demo:
-YOUR_VERCEL_LINK
+YOUR_VERCEL_LINK : https://hostelbird.vercel.app/
 
 Demo Video:
-YOUR_VIDEO_LINK
+YOUR_VIDEO_LINK : https://drive.google.com/file/d/1xJ4teTFcFcPpX_-x6iIItnN5IIgioOB5/view?usp=sharing
