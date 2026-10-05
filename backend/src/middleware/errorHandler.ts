@@ -1,9 +1,9 @@
-import type { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function notFoundHandler(req: Request, res: Response) {
+export function notFoundHandler(req: Request, res: Response): void {
   res.status(404).json({
     success: false,
-    status: 'notFound',
+    status:  'notFound',
     message: `Route not found: ${req.method} ${req.path}`,
   });
 }
@@ -13,11 +13,11 @@ export function errorHandler(
   _req: Request,
   res: Response,
   _next: NextFunction
-) {
+): void {
   console.error('[HostelBird API Error]', err.message);
   res.status(500).json({
     success: false,
-    status: 'error',
+    status:  'error',
     message: 'Internal server error',
   });
 }
