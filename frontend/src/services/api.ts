@@ -1,8 +1,9 @@
+/// <reference types="vite/client" />
 /**
  * api.ts — HostelBird Build & Break Frontend API Service
  *
- * Connects to our own mock backend (not Hostelbird's private API).
- * Simulates real-world failure modes for demo/testing purposes.
+ * In development:  requests go to /api/* (proxied by Vite to localhost:4000)
+ * In production:   requests go to VITE_API_URL/api/* (Render backend)
  */
 
 import type { Destination, Property, Room, Booking, BookingDates, GuestCount } from '../types';
@@ -16,8 +17,12 @@ import {
   maintenanceState,
 } from '../utils/apiState';
 
-const BASE_URL = '/api';
-const TIMEOUT_MS = 8000;
+// In dev: '' so Vite proxy handles /api/*
+// In prod: full Render URL e.g. https://hostelbird-api.onrender.com
+const API_ORIGIN = import.meta.env.VITE_API_URL ?? '';
+const BASE_URL   = `${API_ORIGIN}/api`;
+
+const TIMEOUT_MS = 10000;
 
 // ── Fetch with timeout ────────────────────────────────────────────────────
 
@@ -65,9 +70,7 @@ export async function fetchDestinations(): Promise<ApiState<Destination[]>> {
   return apiCall<Destination[]>(`${BASE_URL}/destinations`);
 }
 
-export async function fetchDestinationBySlug(
-  slug: string
-): Promise<ApiState<Destination>> {
+export async function fetchDestinationBySlug(slug: string): Promise<ApiState<Destination>> {
   return apiCall<Destination>(`${BASE_URL}/destinations/${slug}`);
 }
 
@@ -81,9 +84,9 @@ export async function fetchProperties(params?: {
 }): Promise<ApiState<Property[]>> {
   const query = new URLSearchParams();
   if (params?.destinationSlug) query.set('destination', params.destinationSlug);
-  if (params?.checkIn) query.set('checkIn', params.checkIn);
+  if (params?.checkIn)  query.set('checkIn',  params.checkIn);
   if (params?.checkOut) query.set('checkOut', params.checkOut);
-  if (params?.guests) query.set('guests', String(params.guests));
+  if (params?.guests)   query.set('guests',   String(params.guests));
 
   const qs = query.toString() ? `?${query.toString()}` : '';
   return apiCall<Property[]>(`${BASE_URL}/properties${qs}`);
@@ -123,9 +126,7 @@ export async function validateBooking(
   });
 }
 
-export async function createBooking(
-  payload: BookingPayload
-): Promise<ApiState<Booking>> {
+export async function createBooking(payload: BookingPayload): Promise<ApiState<Booking>> {
   return apiCall<Booking>(`${BASE_URL}/bookings`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

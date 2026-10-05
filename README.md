@@ -147,6 +147,21 @@ The Vite dev server automatically proxies `/api/*` to `http://localhost:4000`.
 
 ---
 
+## Deployment
+
+| Service | Platform | URL |
+|---------|----------|-----|
+| Frontend | Vercel | https://hostelbird-build-break.vercel.app |
+| Backend  | Render | https://hostelbird-api.onrender.com |
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for full step-by-step deployment instructions.
+
+**Quick summary:**
+- **Vercel** — import `frontend/` folder, set `VITE_API_URL=https://hostelbird-api.onrender.com`
+- **Render** — import `backend/` folder, build: `npm install && npm run build`, start: `npm start`
+
+---
+
 ## Demo Flow
 
 1. Visit **http://localhost:5173/debug** — Bug & Fix Lab overview
@@ -190,3 +205,138 @@ The Vite dev server automatically proxies `/api/*` to `http://localhost:4000`.
 ---
 
 *HostelBird Build & Break Hackathon Submission — October 2026*
+
+# HostelBird Build & Break Hackathon
+
+## Project Title
+
+HostelBird Booking Experience — Bug Fix & UX Reliability Improvements
+
+## Overview
+
+This project was developed for the HostelBird Build & Break Hackathon.
+
+Instead of creating an unrelated travel platform, I analyzed the HostelBird booking journey and focused on identifying and fixing meaningful issues affecting the user experience.
+
+The project focuses on:
+
+- Booking date validation
+- Destination loading states
+- Error and empty-state handling
+- Destination-to-property navigation
+- Room selection
+- Booking summary and price calculation
+
+## Problems Identified
+
+### Bug 1 — Invalid/Past Booking Dates
+
+Problem:
+The booking interface can display invalid or past dates.
+
+Impact:
+Users may begin their booking journey with an invalid date range.
+
+Fix:
+Implemented dynamic date initialization and date validation.
+
+---
+
+### Bug 2 — Incorrect Location/Availability Error State
+
+Problem:
+A location-loading/API failure can be represented as an empty property result.
+
+Impact:
+Users may believe that no properties exist when the actual problem is a data-loading failure.
+
+Fix:
+Implemented separate states for:
+
+- Loading
+- Empty
+- API Error
+- Not Found
+- Maintenance
+- Success
+
+---
+
+### Bug 3 — Destination → Property Flow
+
+Problem:
+Investigated failures occurring between destination discovery and property selection.
+
+Impact:
+Users can get stuck before reaching available properties.
+
+Fix:
+Improved destination/property routing and state handling.
+
+---
+
+### Bug 4 — Room Selection and Booking Summary
+
+Problem:
+Booking summary state can become unclear when no room is selected or when room/guest information changes.
+
+Fix:
+Implemented synchronized:
+
+- Room selection
+- Guest validation
+- Pricing
+- Taxes
+- Discounts
+- Final total
+
+---
+
+## Before vs After
+
+### Before
+
+Describe the original behavior.
+
+### After
+
+Describe the corrected behavior.
+
+## Tech Stack
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Node.js
+- Express
+- MongoDB
+- Vitest
+- Playwright
+
+## Testing
+
+The application was tested for:
+
+- Valid booking dates
+- Invalid booking dates
+- Room selection
+- Guest capacity
+- Price calculation
+- API failures
+- Empty inventory
+- Retry behavior
+- Responsive layouts
+
+## Repository
+
+GitHub:
+YOUR_GITHUB_LINK
+
+## Demo
+
+Live Demo:
+YOUR_VERCEL_LINK
+
+Demo Video:
+YOUR_VIDEO_LINK
